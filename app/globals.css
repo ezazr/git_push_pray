@@ -424,3 +424,154 @@ td small { color:var(--muted); }
     width: min(100%, 370px);
   }
 }
+/* Clinical workflow actions */
+
+.clinical-actions-wrapper {
+  margin-left: auto;
+}
+
+.clinical-action-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.clinical-action-buttons button,
+.clinical-note-editor button {
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.secondary-action {
+  background: #eef2f7;
+  color: #172033;
+}
+
+.acknowledge-action {
+  background: #c94646;
+  color: white;
+}
+
+.acknowledge-action.acknowledged {
+  background: #e8f6ee;
+  color: #24744a;
+}
+
+.clinical-action-buttons button:disabled {
+  cursor: default;
+}
+
+.clinical-note-editor {
+  width: 360px;
+  margin-top: 14px;
+  padding: 16px;
+  border: 1px solid #e1e7ef;
+  border-radius: 14px;
+  background: white;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+}
+
+.clinical-note-editor label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.clinical-note-editor textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 11px;
+  border: 1px solid #d8dee8;
+  border-radius: 10px;
+  resize: vertical;
+  font: inherit;
+}
+
+.clinical-note-editor button {
+  margin-top: 10px;
+  background: #2563eb;
+  color: white;
+}
+
+.clinical-note-editor button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.workflow-events {
+  width: 360px;
+  margin-top: 14px;
+  overflow: hidden;
+  border: 1px solid #e1e7ef;
+  border-radius: 14px;
+  background: white;
+}
+
+.workflow-events-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-bottom: 1px solid #eef2f7;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.workflow-event {
+  display: flex;
+  gap: 10px;
+  padding: 13px 14px;
+  border-bottom: 1px solid #f0f3f7;
+}
+
+.workflow-event:last-child {
+  border-bottom: 0;
+}
+
+.workflow-event-dot {
+  width: 8px;
+  height: 8px;
+  margin-top: 5px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #2563eb;
+}
+
+.workflow-event strong {
+  font-size: 13px;
+}
+
+.workflow-event p {
+  margin: 3px 0 0;
+  color: #69758a;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.workflow-prototype-note {
+  width: 360px;
+  margin: 9px 0 0;
+  color: #7b8799;
+  font-size: 10px;
+  text-align: right;
+}
+
+@media (max-width: 800px) {
+  .clinical-actions-wrapper {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .clinical-action-buttons {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .clinical-note-editor,
+  .workflow-events,
+  .workflow-prototype-note {
+    width: 100%;
+  }
+}
