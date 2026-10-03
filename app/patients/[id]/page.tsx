@@ -1,4 +1,4 @@
-
+import DeteriorationPanel from "../../../components/DeteriorationPanel";
 import Link from "next/link";
 import Shell from "../../../components/Shell";
 import VitalCard from "../../../components/VitalCard";
@@ -62,6 +62,11 @@ export default async function PatientDetail({
         </div>
 
         {/* Vital signs */}
+        <DeteriorationPanel
+  hr={patient.hr}
+  spo2={patient.spo2}
+  signal={patient.signal}
+/>
         <div className="vitalsGrid">
           <VitalCard
             label="Heart rate"

@@ -575,3 +575,289 @@ td small { color:var(--muted); }
     width: 100%;
   }
 }
+/* SmartVitals deterioration detection */
+
+.deteriorationPanel {
+  margin: 22px 0;
+  padding: 22px;
+  background: #ffffff;
+  border: 1px solid #e3e8ef;
+  border-radius: 16px;
+}
+
+.deteriorationPanel.high {
+  border-left: 5px solid #d64545;
+}
+
+.deteriorationTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.deteriorationLabel {
+  display: block;
+  margin-bottom: 7px;
+  color: #607086;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.deteriorationTop h2 {
+  margin: 0 0 6px;
+  font-size: 21px;
+}
+
+.deteriorationTop p {
+  margin: 0;
+  color: #69778a;
+  font-size: 13px;
+}
+
+.priorityBadge {
+  white-space: nowrap;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.priorityHigh {
+  background: #fdecec;
+  color: #b83232;
+}
+
+.priorityNormal {
+  background: #e9f7ef;
+  color: #24744a;
+}
+
+.baselineComparison {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.baselineItem {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  background: #f7f9fc;
+  border: 1px solid #edf0f5;
+  border-radius: 12px;
+}
+
+.baselineItem > span {
+  color: #66758a;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.baselineItem strong {
+  margin: 6px 0 2px;
+  color: #172033;
+  font-size: 25px;
+}
+
+.baselineItem small {
+  color: #7b8798;
+  font-size: 11px;
+}
+
+.baselineItem b {
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+.readingDanger {
+  color: #c43d3d;
+}
+
+.readingGood {
+  color: #278252;
+}
+
+.prototypeWarning {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #edf0f5;
+  color: #7a8493;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+@media (max-width: 850px) {
+  .deteriorationTop {
+    flex-direction: column;
+  }
+
+  .baselineComparison {
+    grid-template-columns: 1fr;
+  }
+}
+/* Deterioration explanation */
+
+.deviationValue {
+  margin-top: 5px;
+  color: #7b8798;
+  font-size: 11px;
+}
+
+.priorityExplanation {
+  margin-top: 18px;
+  padding: 18px;
+  background: #f8fafc;
+  border: 1px solid #e6ebf1;
+  border-radius: 14px;
+}
+
+.priorityExplanation.priorityAlert {
+  background: #fffafa;
+  border-color: #f1d6d6;
+}
+
+.priorityExplanationHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 15px;
+}
+
+.explanationEyebrow {
+  display: block;
+  margin-bottom: 4px;
+  color: #7b8798;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.priorityExplanationHeader h3 {
+  margin: 0;
+  color: #172033;
+  font-size: 16px;
+}
+
+.abnormalCounter {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 11px;
+  background: white;
+  border: 1px solid #e5e9ef;
+  border-radius: 10px;
+}
+
+.abnormalCounter strong {
+  color: #c43d3d;
+  font-size: 18px;
+}
+
+.abnormalCounter span {
+  color: #68768a;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.reasonList {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.reasonItem {
+  display: flex;
+  gap: 11px;
+  align-items: flex-start;
+  padding: 11px 12px;
+  background: white;
+  border-radius: 10px;
+}
+
+.reasonIcon {
+  display: flex;
+  width: 23px;
+  height: 23px;
+  flex: 0 0 23px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.reasonDanger .reasonIcon {
+  background: #fde8e8;
+  color: #bf3535;
+}
+
+.reasonNormal .reasonIcon {
+  background: #e6f5ed;
+  color: #23764a;
+}
+
+.reasonItem strong {
+  color: #172033;
+  font-size: 12px;
+}
+
+.reasonItem p {
+  margin: 3px 0 0;
+  color: #758195;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.workflowRecommendation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 13px;
+  padding-top: 13px;
+  border-top: 1px solid #e6eaf0;
+}
+
+.workflowRecommendation > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.workflowRecommendation span {
+  color: #7b8798;
+  font-size: 10px;
+}
+
+.workflowRecommendation strong {
+  color: #172033;
+  font-size: 13px;
+}
+
+.workflowStatus {
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.workflowStatus.workflowReview {
+  background: #fdeaea;
+  color: #b83232;
+}
+
+.workflowStatus.workflowMonitor {
+  background: #e8f6ee;
+  color: #24744a;
+}
+
+@media (max-width: 700px) {
+  .priorityExplanationHeader,
+  .workflowRecommendation {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
