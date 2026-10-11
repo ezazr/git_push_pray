@@ -861,3 +861,170 @@ td small { color:var(--muted); }
     flex-direction: column;
   }
 }
+
+/* Patient symptom check-in */
+
+.checkinCard,
+.checkinClinicianCard {
+  width: 100%;
+  max-width: 780px;
+  margin: 28px auto;
+  padding: 24px;
+  background: #fff;
+  border: 1px solid #dce5f0;
+  border-radius: 18px;
+  box-shadow: 0 6px 24px rgba(18, 38, 63, 0.04);
+  color: #172033;
+}
+
+.checkinClinicianCard {
+  max-width: none;
+  margin: 22px 0;
+}
+
+.checkinHeading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.checkinHeading h2 {
+  margin: 4px 0 8px;
+  font-size: 22px;
+}
+
+.checkinHeading p {
+  color: #68768a;
+  font-size: 13px;
+}
+
+.checkinPatientId {
+  background: #eef3ff;
+  color: #3155a4;
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.checkinOptions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.checkinOption {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #e0e7f0;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.checkinOption.selected {
+  border-color: #3478ed;
+  background: #eef4ff;
+}
+
+.checkinOption input {
+  accent-color: #3478ed;
+}
+
+.checkinSeverity {
+  display: grid;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.checkinSeverity label {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.checkinSeverity select {
+  padding: 12px;
+  border: 1px solid #dce5f0;
+  border-radius: 10px;
+  background: #fff;
+  color: #172033;
+}
+
+.checkinSubmit {
+  width: 100%;
+  margin-top: 20px;
+  padding: 13px;
+  background: #2563eb;
+  border: none;
+  border-radius: 11px;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.checkinSuccess {
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 10px;
+  background: #e7f6ee;
+  color: #23764a;
+  font-size: 13px;
+}
+
+.checkinError {
+  color: #b83232;
+  font-size: 13px;
+}
+
+.checkinDisclaimer,
+.checkinEmpty {
+  margin-top: 18px;
+  font-size: 12px;
+  color: #68768a;
+}
+
+.checkinHistory {
+  margin-top: 18px;
+  display: grid;
+  gap: 10px;
+}
+
+.checkinHistoryItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 14px;
+  border: 1px solid #e5eaf1;
+  border-radius: 12px;
+}
+
+.checkinHistoryItem strong {
+  font-size: 14px;
+}
+
+.checkinHistoryItem p,
+.checkinHistoryItem span {
+  font-size: 12px;
+  color: #68768a;
+}
+
+@media (max-width: 600px) {
+  .checkinOptions {
+    grid-template-columns: 1fr;
+  }
+
+  .checkinCard,
+  .checkinClinicianCard {
+    padding: 16px;
+  }
+
+  .checkinHistoryItem {
+    flex-direction: column;
+  }
+}

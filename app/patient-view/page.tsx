@@ -1,15 +1,64 @@
+
 "use client";
 
 import { useState } from "react";
+import {
+  saveCheckin,
+  type Severity,
+  type Symptom,
+} from "../../lib/checkins";
 
 type Screen = "home" | "vitals" | "device";
 
+const symptomOptions: Symptom[] = [
+  "Feeling normal",
+  "Shortness of breath",
+  "Dizziness",
+  "Chest discomfort",
+  "Unusual fatigue",
+];
+
 export default function PatientView() {
   const [screen, setScreen] = useState<Screen>("home");
+  const [symptom, setSymptom] = useState<Symptom>("Feeling normal");
+  const [severity, setSeverity] = useState<Severity>("Mild");
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
+
+  // This demo patient is Sarah Miller (SV-1001).
+  const patientId = "SV-1001";
 
   const heartRate = 78;
   const spo2 = 98;
   const temperature = 36.7;
+  
+function submitCheckin() {
+  try {
+    saveCheckin({
+      id: `checkin-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+      patientId,
+      symptom,
+      severity: symptom === "Feeling normal" ? "Mild" : severity,
+      timestamp: new Date().toISOString(),
+    });
+
+    setSubmitted(true);
+    setError("");
+  } catch (error) {
+    console.error("SmartVitals check-in save failed:", error);
+
+    setSubmitted(false);
+    setError(
+      error instanceof Error
+        ? `Unable to save check-in: ${error.message}`
+        : "Unable to save check-in."
+    );
+  }
+}
+
+  
+
+      
 
   return (
     <main className="wearable-page">
@@ -18,12 +67,14 @@ export default function PatientView() {
           <p className="eyebrow">PATIENT EXPERIENCE</p>
           <h1>SmartVitals Wearable</h1>
           <p>
-            A simulated wearable interface designed for remote patient
-            monitoring and virtual care.
+            A function ssimulated wearable interface designed for remote
+            patient monitoring and virtual care.
           </p>
         </div>
 
-        <span className="prototype-badge">SIMULATED PROTOTYPE</span>
+        <span className="prototype-badge">
+          SIMULATED PROTOTYPE
+        </span>
       </div>
 
       <div className="wearable-shell">
@@ -41,9 +92,13 @@ export default function PatientView() {
               </div>
 
               <div className="primary-reading">
-                <span className="reading-number">{heartRate}</span>
+                <span className="reading-number">
+                  {heartRate}
+                </span>
                 <span className="reading-unit">BPM</span>
-                <span className="reading-label">HEART RATE</span>
+                <span className="reading-label">
+                  HEART RATE
+                </span>
               </div>
 
               <div className="mini-vitals">
@@ -86,7 +141,8 @@ export default function PatientView() {
               </div>
 
               <p className="wearable-note">
-                Readings shown here are simulated for feasibility testing.
+                Readings shown here are simulated for
+                feasibility testing.
               </p>
             </div>
           )}
@@ -142,9 +198,101 @@ export default function PatientView() {
         </div>
       </div>
 
+      {/* Patient-reported symptom check-in */}
+      <section className="checkinCard">
+        <div className="checkinHeading">
+          <div>
+            <p className="eyebrow">PATIENT CHECK-IN</p>
+            <h2>How are you feeling?</h2>
+            <p>
+              Share a simulated symptom report with
+              your care team.
+            </p>
+          </div>
+
+          <span className="checkinPatientId">
+            Demo patient: {patientId}
+          </span>
+        </div>
+
+        <div className="checkinOptions">
+          {symptomOptions.map((option) => (
+            <label
+              key={option}
+              className={`checkinOption ${
+                symptom === option ? "selected" : ""
+              }`}
+            >
+              <input
+                type="radio"
+                name="symptom"
+                checked={symptom === option}
+                onChange={() => {
+                  setSymptom(option);
+                  setSubmitted(false);
+                }}
+              />
+              {option}
+            </label>
+          ))}
+        </div>
+
+        {symptom !== "Feeling normal" && (
+          <div className="checkinSeverity">
+            <label htmlFor="symptomSeverity">
+              How severe is the symptom?
+            </label>
+
+            <select
+              id="symptomSeverity"
+              value={severity}
+              onChange={(event) => {
+                setSeverity(
+                  event.target.value as Severity
+                );
+                setSubmitted(false);
+              }}
+            >
+              <option value="Mild">Mild</option>
+              <option value="Moderate">Moderate</option>
+              <option value="Severe">Severe</option>
+            </select>
+          </div>
+        )}
+
+        <button
+          type="button"
+          className="checkinSubmit"
+          onClick={submitCheckin}
+        >
+          Submit check-in
+        </button>
+
+        {submitted && (
+          <div className="checkinSuccess" role="status">
+            ✓ Demo check-in saved successfully.
+            Open Sarah Miller&apos;s clinician page
+            to view the report.
+          </div>
+        )}
+
+        {error && (
+          <p className="checkinError" role="alert">
+            {error}
+          </p>
+        )}
+
+        <p className="checkinDisclaimer">
+          Demonstration only. Reports are stored locally
+          in this browser and are not transmitted to a
+          real care team or healthcare service.
+        </p>
+      </section>
+
       <p className="prototype-disclaimer">
-        SmartVitals feasibility prototype. Values are simulated and are not
-        intended for diagnosis or clinical decision-making.
+        SmartVitals feasibility prototype. Values are
+        simulated and are not intended for diagnosis
+        or clinical decision-making.
       </p>
     </main>
   );
