@@ -1,14 +1,20 @@
+
 import "./globals.css";
 
 export const metadata = {
   title: "SmartVitals",
-  description: "Remote patient monitoring prototype"
+  description: "Remote patient monitoring prototype",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>{children}</body>
     </html>
   );
 }
+

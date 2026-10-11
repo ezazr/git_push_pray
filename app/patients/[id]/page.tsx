@@ -60,9 +60,10 @@ export default async function PatientDetail({
 
           {/* Clinical note and alert acknowledgement */}
           <ClinicalActions
-            patientName={patient.name}
-            isCritical={critical}
-          />
+  patientId={patient.id}
+  patientName={patient.name}
+  isCritical={critical}
+/>
         </div>
 
         {/* Live deterioration simulation for Sarah Miller */}
