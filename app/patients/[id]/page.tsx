@@ -1,13 +1,17 @@
 
+
 import Link from "next/link";
+import { notFound } from "next/navigation";
+
 import Shell from "../../../components/Shell";
 import VitalCard from "../../../components/VitalCard";
 import TrendChart from "../../../components/TrendChart";
 import ClinicalActions from "../../../components/ClinicalActions";
 import DeteriorationPanel from "../../../components/DeteriorationPanel";
 import DeteriorationSimulation from "../../../components/DeteriorationSimulation";
-import { patients } from "../../../lib/data";
 import PatientCheckins from "../../../components/PatientCheckins";
+
+import { patients } from "../../../lib/data";
 
 export default async function PatientDetail({
   params,
@@ -16,22 +20,26 @@ export default async function PatientDetail({
 }) {
   const { id } = await params;
 
-  const patient = patients.find((p) => p.id === id) || patients[0];
+  const patient = patients.find((p) => p.id === id);
+
+  if (!patient) {
+    notFound();
+  }
+
   const critical = patient.status === "Critical";
 
-  // Only Sarah Miller uses the interactive deterioration scenario.
+  // Sarah Miller uses the interactive simulated scenario.
   const isSimulationPatient = patient.id === "SV-1001";
 
   return (
     <Shell>
       <section className="content">
-
         {/* Back navigation */}
         <Link href="/dashboard" className="backLink">
           ← Back to dashboard
         </Link>
 
-        {/* Patient header */}
+        {/* Patient identity header */}
         <div className="patientHeader">
           <div className="patientTitle">
             <div className="avatar patientAvatar">
@@ -57,16 +65,21 @@ export default async function PatientDetail({
               </p>
             </div>
           </div>
-
-          {/* Clinical note and alert acknowledgement */}
-          <ClinicalActions
-  patientId={patient.id}
-  patientName={patient.name}
-  isCritical={critical}
-/>
         </div>
 
-        {/* Live deterioration simulation for Sarah Miller */}
+        {/* Clinical workflow below the patient header */}
+        <section
+          className="clinical-workflow-section"
+          aria-label="Clinical workflow and audit activity"
+        >
+          <ClinicalActions
+            patientId={patient.id}
+            patientName={patient.name}
+            isCritical={critical}
+          />
+        </section>
+
+        {/* Interactive deterioration simulation */}
         {isSimulationPatient ? (
           <DeteriorationSimulation
             signal={patient.signal}
@@ -74,14 +87,14 @@ export default async function PatientDetail({
           />
         ) : (
           <>
-            {/* Baseline intelligence for other patients */}
+            {/* Baseline deterioration analysis */}
             <DeteriorationPanel
               hr={patient.hr}
               spo2={patient.spo2}
               signal={patient.signal}
             />
 
-            {/* Standard patient vital signs */}
+            {/* Patient vital signs */}
             <div className="vitalsGrid">
               <VitalCard
                 label="Heart rate"
@@ -118,8 +131,10 @@ export default async function PatientDetail({
           </>
         )}
 
-        {/* Simulated vital-sign trends */}
+        {/* Patient symptom check-ins */}
         <PatientCheckins patientId={patient.id} />
+
+        {/* Simulated vital-sign trends */}
         <div className="chartsGrid">
           <TrendChart
             title="ECG / heart-rate trend"
@@ -132,9 +147,8 @@ export default async function PatientDetail({
           />
         </div>
 
-        {/* Device health and clinical events */}
+        {/* Device health and recent events */}
         <div className="split detailSplit">
-
           {/* Device health */}
           <section className="card">
             <div className="cardHead">
@@ -181,7 +195,7 @@ export default async function PatientDetail({
             </div>
           </section>
 
-          {/* Recent events */}
+          {/* Recent simulated events */}
           <section className="card">
             <div className="cardHead">
               <div>
@@ -227,6 +241,7 @@ export default async function PatientDetail({
           </section>
         </div>
 
+        {/* Prototype disclaimer */}
         <p
           style={{
             marginTop: "20px",
@@ -238,7 +253,6 @@ export default async function PatientDetail({
           patient information and simulated telemetry. It is not a
           clinically validated medical device.
         </p>
-
       </section>
     </Shell>
   );

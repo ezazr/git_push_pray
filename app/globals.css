@@ -1107,3 +1107,59 @@ td small { color:var(--muted); }
   color: #8792a3;
   font-size: 11px;
 }
+
+/* Final patient clinical workflow layout */
+
+.clinical-workflow-section {
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.clinical-workflow-section .clinical-actions-wrapper {
+  width: 100%;
+  margin-left: 0;
+}
+
+.clinical-workflow-section .clinical-action-buttons {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.clinical-workflow-section .workflow-events {
+  width: 100%;
+  max-width: none;
+  margin-top: 16px;
+}
+
+.clinical-workflow-section .workflow-event > div {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.clinical-workflow-section .workflow-prototype-note {
+  width: 100%;
+  text-align: left;
+  line-height: 1.5;
+}
+
+.clinical-workflow-section .clinical-note-editor,
+.clinical-workflow-section .clinical-escalation-editor {
+  width: 100%;
+  max-width: 620px;
+}
+
+@media (max-width: 600px) {
+  .clinical-workflow-section .clinical-action-buttons button {
+    width: 100%;
+  }
+
+  .patientTitle {
+    align-items: flex-start;
+  }
+
+  .titleLine {
+    flex-wrap: wrap;
+  }
+}

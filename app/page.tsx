@@ -21,7 +21,7 @@ export default function Home() {
           <input defaultValue="clinician@smartvitals.demo" />
           <label>Password</label>
           <input type="password" defaultValue="prototype" />
-          <Link className="primaryBtn" href="/dashboard">Sign in securely</Link>
+          <Link className="primaryBtn" href="/dashboard">Enter demo dashboard</Link>
 
           <div className="loginNote">
             <strong>Prototype notice</strong>
