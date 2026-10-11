@@ -7,6 +7,7 @@ import ClinicalActions from "../../../components/ClinicalActions";
 import DeteriorationPanel from "../../../components/DeteriorationPanel";
 import DeteriorationSimulation from "../../../components/DeteriorationSimulation";
 import { patients } from "../../../lib/data";
+import PatientCheckins from "../../../components/PatientCheckins";
 
 export default async function PatientDetail({
   params,
@@ -117,6 +118,7 @@ export default async function PatientDetail({
         )}
 
         {/* Simulated vital-sign trends */}
+        <PatientCheckins patientId={patient.id} />
         <div className="chartsGrid">
           <TrendChart
             title="ECG / heart-rate trend"
