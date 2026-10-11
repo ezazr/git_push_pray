@@ -1,9 +1,11 @@
-import DeteriorationPanel from "../../../components/DeteriorationPanel";
+
 import Link from "next/link";
 import Shell from "../../../components/Shell";
 import VitalCard from "../../../components/VitalCard";
 import TrendChart from "../../../components/TrendChart";
 import ClinicalActions from "../../../components/ClinicalActions";
+import DeteriorationPanel from "../../../components/DeteriorationPanel";
+import DeteriorationSimulation from "../../../components/DeteriorationSimulation";
 import { patients } from "../../../lib/data";
 
 export default async function PatientDetail({
@@ -14,8 +16,10 @@ export default async function PatientDetail({
   const { id } = await params;
 
   const patient = patients.find((p) => p.id === id) || patients[0];
-
   const critical = patient.status === "Critical";
+
+  // Only Sarah Miller uses the interactive deterioration scenario.
+  const isSimulationPatient = patient.id === "SV-1001";
 
   return (
     <Shell>
@@ -29,7 +33,6 @@ export default async function PatientDetail({
         {/* Patient header */}
         <div className="patientHeader">
           <div className="patientTitle">
-
             <div className="avatar patientAvatar">
               {patient.name
                 .split(" ")
@@ -54,54 +57,66 @@ export default async function PatientDetail({
             </div>
           </div>
 
-          {/* Interactive clinician workflow */}
+          {/* Clinical note and alert acknowledgement */}
           <ClinicalActions
             patientName={patient.name}
             isCritical={critical}
           />
         </div>
 
-        {/* Vital signs */}
-        <DeteriorationPanel
-  hr={patient.hr}
-  spo2={patient.spo2}
-  signal={patient.signal}
-/>
-        <div className="vitalsGrid">
-          <VitalCard
-            label="Heart rate"
-            value={patient.hr}
-            unit="BPM"
-            hint="Current reading"
-            tone={patient.hr > 120 ? "critical" : "good"}
+        {/* Live deterioration simulation for Sarah Miller */}
+        {isSimulationPatient ? (
+          <DeteriorationSimulation
+            signal={patient.signal}
+            battery={patient.battery}
           />
+        ) : (
+          <>
+            {/* Baseline intelligence for other patients */}
+            <DeteriorationPanel
+              hr={patient.hr}
+              spo2={patient.spo2}
+              signal={patient.signal}
+            />
 
-          <VitalCard
-            label="SpO₂"
-            value={patient.spo2}
-            unit="%"
-            hint="Blood oxygen"
-            tone={patient.spo2 < 92 ? "critical" : "good"}
-          />
+            {/* Standard patient vital signs */}
+            <div className="vitalsGrid">
+              <VitalCard
+                label="Heart rate"
+                value={patient.hr}
+                unit="BPM"
+                hint="Current simulated reading"
+                tone={patient.hr > 120 ? "critical" : "good"}
+              />
 
-          <VitalCard
-            label="Temperature"
-            value={patient.temp}
-            unit="°C"
-            hint="Skin temperature"
-            tone={patient.temp >= 38 ? "warning" : "neutral"}
-          />
+              <VitalCard
+                label="SpO₂"
+                value={patient.spo2}
+                unit="%"
+                hint="Simulated blood oxygen"
+                tone={patient.spo2 < 92 ? "critical" : "good"}
+              />
 
-          <VitalCard
-            label="Device battery"
-            value={patient.battery}
-            unit="%"
-            hint="Estimated remaining"
-            tone={patient.battery < 50 ? "warning" : "good"}
-          />
-        </div>
+              <VitalCard
+                label="Temperature"
+                value={patient.temp}
+                unit="°C"
+                hint="Simulated skin temperature"
+                tone={patient.temp >= 38 ? "warning" : "neutral"}
+              />
 
-        {/* Simulated trends */}
+              <VitalCard
+                label="Device battery"
+                value={patient.battery}
+                unit="%"
+                hint="Simulated battery level"
+                tone={patient.battery < 50 ? "warning" : "good"}
+              />
+            </div>
+          </>
+        )}
+
+        {/* Simulated vital-sign trends */}
         <div className="chartsGrid">
           <TrendChart
             title="ECG / heart-rate trend"
@@ -114,7 +129,7 @@ export default async function PatientDetail({
           />
         </div>
 
-        {/* Device and event information */}
+        {/* Device health and clinical events */}
         <div className="split detailSplit">
 
           {/* Device health */}
@@ -122,7 +137,7 @@ export default async function PatientDetail({
             <div className="cardHead">
               <div>
                 <h3>Device health</h3>
-                <p>Wearable patch telemetry</p>
+                <p>Wearable patch telemetry (simulated)</p>
               </div>
 
               <span className="statusPill stable">
@@ -131,20 +146,19 @@ export default async function PatientDetail({
             </div>
 
             <div className="deviceGrid">
-
               <div>
                 <span>PPG sensor</span>
-                <b>Active</b>
+                <b>Active (simulated)</b>
               </div>
 
               <div>
                 <span>ECG sensor</span>
-                <b>Active</b>
+                <b>Active (simulated)</b>
               </div>
 
               <div>
                 <span>Temperature</span>
-                <b>Active</b>
+                <b>Active (simulated)</b>
               </div>
 
               <div>
@@ -154,36 +168,33 @@ export default async function PatientDetail({
 
               <div>
                 <span>Sampling target</span>
-                <b>500 Hz</b>
+                <b>500 Hz (proposed)</b>
               </div>
 
               <div>
                 <span>BLE connection</span>
-                <b>Secure</b>
+                <b>Simulated</b>
               </div>
-
             </div>
           </section>
 
           {/* Recent events */}
           <section className="card">
-
             <div className="cardHead">
               <div>
                 <h3>Recent events</h3>
-                <p>Clinical and device activity</p>
+                <p>Illustrative clinical and device activity</p>
               </div>
             </div>
 
             <div className="timeline">
-
               <div>
                 <i className="dot red" />
 
                 <p>
                   <strong>Low oxygen threshold detected</strong>
                   <span>
-                    2 minutes ago • automated alert
+                    Sample event • simulated alert
                   </span>
                 </p>
               </div>
@@ -194,7 +205,7 @@ export default async function PatientDetail({
                 <p>
                   <strong>Device data synchronised</strong>
                   <span>
-                    4 minutes ago • cloud relay
+                    Sample event • simulated cloud relay
                   </span>
                 </p>
               </div>
@@ -205,15 +216,26 @@ export default async function PatientDetail({
                 <p>
                   <strong>Signal quality validated</strong>
                   <span>
-                    6 minutes ago • local processing
+                    Sample event • simulated local processing
                   </span>
                 </p>
               </div>
-
             </div>
           </section>
-
         </div>
+
+        <p
+          style={{
+            marginTop: "20px",
+            fontSize: "12px",
+            color: "#788497",
+          }}
+        >
+          SmartVitals is a feasibility-study prototype using synthetic
+          patient information and simulated telemetry. It is not a
+          clinically validated medical device.
+        </p>
+
       </section>
     </Shell>
   );
