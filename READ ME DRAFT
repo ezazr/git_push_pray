@@ -1,0 +1,144 @@
+# SmartVitals Prototype #
+
+**AI-enabled vital signs wearable for virtual care: clinician dashboard and patient view**
+
+> **Concept only.** This is a feasibility study software prototype. It is not a medical device and not a clinical decision support system. All patient and sensor data is simulated.
+
+## About
+
+SmartVitals is a feasibility study into a next generation wearable device that supports remote patient monitoring for virtual care. This repository contains a **software prototype** of the clinician dashboard and a simplified patient view that show how the data from the wearable device could be monitored and acted on.
+
+It is part of the La Trobe University CSE3CAP capstone.
+
+## Background
+
+Care is modernize and moving out of hospitals and into people's home, through programs like the Victorian Virtual Emergency Department (VVED) and hospital-at-home. Existing wearables device are mostly single use, they sample at low rates and rely on separate gateway hardware.
+
+The SmartVitals concept is a **reusable, rechargeable, cellular-connected wearable** that combines PPG, rPPG, ECG and temperature sensing with on device AI, targeting a sampling rate of 500 samples per second. The wider study covers four major areas:
+
+| Area | Focus |
+|---|---|
+| Technical | Sensor design and signal-quality benchmarking |
+| Clinical | End-to-end workflow map, enrolment to discharge |
+| Regulatory | TGA pathway (preliminary Class IIb) and ISO 13485 / ISO 14971 review |
+| Commercial | University-led manufacturing compared with existing vendors |
+
+## What this prototype shows
+
+| Route | Screen |
+|---|---|
+| `/` | Prototype clinician login |
+| `/dashboard` | Patient monitoring table |
+| `/alerts` | Critical and warning alert triage |
+| `/patients/[id]` | Patient detail: vitals, simulated ECG and SpO2 trend charts, wearable device health, deterioration panel and clinical actions |
+| `/patient-view` | Simplified patient mobile view, showing role separation |
+
+Clinicians can acknowledge an alert and add a clinical note from the patient detail screen. 
+
+## How it fits the system architecture
+
+| Architecture component | In this repository |
+|---|---|
+| Wearable patch | Simulated. Device health (battery and signal) is shown from sample values |
+| Patient mobile app | Simplified patient view (`/patient-view`) |
+| VVED clinical relay | Not implemented |
+| Cloud services | Not implemented. Data is hard-coded in `lib/data.ts` |
+| Clinician dashboard | Implemented (dashboard, alerts and patient detail screens) |
+
+## Tech stack
+
+- [Next.js](https://nextjs.org/) 15.2.4 (App Router)
+- React 19.0.0
+- TypeScript 5
+
+
+## Getting started
+
+### Prerequisites
+
+- Node.js 18.18 or later (Node 20 LTS recommended)
+- npm
+
+### Install and run
+
+```bash
+npm install
+npm run dev
+```
+
+Then open <http://localhost:3000>.
+
+To run a production build:
+
+```bash
+npm run build
+npm start
+```
+
+### Signing in
+
+The login form is pre filled with the prototype account (`clinician@smartvitals.demo` / `prototype`). Sign in is for demonstration only and is not real authentication.
+
+## Demo walkthrough
+
+1. Sign in.
+2. Open the dashboard.
+3. Review a critical alert.
+4. Open Sarah Miller.
+5. Show vitals and trend charts.
+6. Show the device-health and security indicators.
+7. Explain alert acknowledgement and clinical-note actions.
+8. Open Patient View to show role separation.
+
+### Simulated patients
+
+| Patient | Status | Reason |
+|---|---|---|
+| Sarah Miller | Critical | Low SpO2 (87%) |
+| Mary Collins | Critical | High heart rate (138 bpm) |
+| Alice Wong | Warning | Raised temperature (37.4 °C) |
+| John Carter | Stable | Normal readings |
+| Daniel Harris | Stable | Normal readings |
+
+## Project structure
+
+```text
+app/
+  page.tsx                 Login
+  dashboard/               Patient monitoring table
+  alerts/                  Alert triage
+  patients/[id]/           Patient detail
+  patient-view/            Simplified patient view
+  layout.tsx, globals.css  Shared layout and styles
+components/
+  Shell.tsx, Sidebar.tsx   App layout and navigation
+  VitalCard.tsx            Vital sign tiles
+  TrendChart.tsx           Simulated trend chart
+  DeteriorationPanel.tsx   Compares readings against a simulated baseline
+  ClinicalActions.tsx      Acknowledge alert and add clinical notes
+lib/
+  data.ts                  Simulated patients and alerts
+```
+
+## Limitations
+
+- All patient and sensor readings are simulated and hard coded. No real patient data is used or collected.
+- The trend charts are static illustrations and are not driven by the patient data.
+- Alert acknowledgements and clinical notes are held in the browser only and reset when the page reloads.
+- The concept supports clinical awareness and does not replace professional judgement.
+
+## Team
+
+| Name | Role |
+|---|---|
+| Harrison Dafilis | Researcher |
+| Nayeemur Rahman Nayeem | Software Developer |
+| Ilyas Syed | Cyber consultant / technical |
+| Anthony Georgiou | Design / Prototyping |
+| Md Ezaz Reza | Communication / commercial |
+
+**Team name:** Git Push Pray
+
+## Acknowledgements
+
+Innovation Central Melbourne, La Trobe University, Northern Health (VVED) and Incarta P/L.
